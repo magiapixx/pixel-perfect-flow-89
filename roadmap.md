@@ -7,3 +7,4 @@
 - [ ] Add a detailed Services page matching the home page and connect all Services links.
 - [ ] Expand the blog with category filters and complete article pages.
 - [ ] Check navigation, article reading, and smaller-screen layouts.
+- [ ] Apply Plus Jakarta Sans across the website.
