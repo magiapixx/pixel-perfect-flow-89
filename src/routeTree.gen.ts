@@ -12,7 +12,10 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as JournalRouteImport } from './routes/journal'
+import { Route as ServicesRouteImport } from './routes/services'
 import { Route as WorkRouteImport } from './routes/work'
+import { Route as JournalIndexRouteImport } from './routes/journal.index'
+import { Route as JournalSlugRouteImport } from './routes/journal.$slug'
 import { Route as WorkIndexRouteImport } from './routes/work.index'
 import { Route as WorkVantaraRouteImport } from './routes/work.vantara'
 
@@ -31,10 +34,25 @@ const JournalRoute = JournalRouteImport.update({
   path: '/journal',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServicesRoute = ServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const WorkRoute = WorkRouteImport.update({
   id: '/work',
   path: '/work',
   getParentRoute: () => rootRouteImport,
+} as any)
+const JournalIndexRoute = JournalIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => JournalRoute,
+} as any)
+const JournalSlugRoute = JournalSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => JournalRoute,
 } as any)
 const WorkIndexRoute = WorkIndexRouteImport.update({
   id: '/',
@@ -50,46 +68,74 @@ const WorkVantaraRoute = WorkVantaraRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/journal': typeof JournalRoute
+  '/journal': typeof JournalRouteWithChildren
+  '/services': typeof ServicesRoute
   '/work': typeof WorkRouteWithChildren
+  '/journal/$slug': typeof JournalSlugRoute
   '/work/vantara': typeof WorkVantaraRoute
+  '/journal/': typeof JournalIndexRoute
   '/work/': typeof WorkIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/journal': typeof JournalRoute
+  '/services': typeof ServicesRoute
+  '/journal/$slug': typeof JournalSlugRoute
   '/work/vantara': typeof WorkVantaraRoute
+  '/journal': typeof JournalIndexRoute
   '/work': typeof WorkIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/journal': typeof JournalRoute
+  '/journal': typeof JournalRouteWithChildren
+  '/services': typeof ServicesRoute
   '/work': typeof WorkRouteWithChildren
+  '/journal/$slug': typeof JournalSlugRoute
   '/work/vantara': typeof WorkVantaraRoute
+  '/journal/': typeof JournalIndexRoute
   '/work/': typeof WorkIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/journal' | '/work' | '/work/vantara' | '/work/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/journal'
+    | '/services'
+    | '/work'
+    | '/journal/$slug'
+    | '/work/vantara'
+    | '/journal/'
+    | '/work/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/journal' | '/work/vantara' | '/work'
+  to:
+    | '/'
+    | '/about'
+    | '/services'
+    | '/journal/$slug'
+    | '/work/vantara'
+    | '/journal'
+    | '/work'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/journal'
+    | '/services'
     | '/work'
+    | '/journal/$slug'
     | '/work/vantara'
+    | '/journal/'
     | '/work/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  JournalRoute: typeof JournalRoute
+  JournalRoute: typeof JournalRouteWithChildren
+  ServicesRoute: typeof ServicesRoute
   WorkRoute: typeof WorkRouteWithChildren
 }
 
@@ -116,12 +162,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof JournalRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/services': {
+      id: '/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/work': {
       id: '/work'
       path: '/work'
       fullPath: '/work'
       preLoaderRoute: typeof WorkRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/journal/': {
+      id: '/journal/'
+      path: '/'
+      fullPath: '/journal/'
+      preLoaderRoute: typeof JournalIndexRouteImport
+      parentRoute: typeof JournalRoute
+    }
+    '/journal/$slug': {
+      id: '/journal/$slug'
+      path: '/$slug'
+      fullPath: '/journal/$slug'
+      preLoaderRoute: typeof JournalSlugRouteImport
+      parentRoute: typeof JournalRoute
     }
     '/work/': {
       id: '/work/'
@@ -140,6 +207,19 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface JournalRouteChildren {
+  JournalSlugRoute: typeof JournalSlugRoute
+  JournalIndexRoute: typeof JournalIndexRoute
+}
+
+const JournalRouteChildren: JournalRouteChildren = {
+  JournalSlugRoute: JournalSlugRoute,
+  JournalIndexRoute: JournalIndexRoute,
+}
+
+const JournalRouteWithChildren =
+  JournalRoute._addFileChildren(JournalRouteChildren)
+
 interface WorkRouteChildren {
   WorkVantaraRoute: typeof WorkVantaraRoute
   WorkIndexRoute: typeof WorkIndexRoute
@@ -155,7 +235,8 @@ const WorkRouteWithChildren = WorkRoute._addFileChildren(WorkRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  JournalRoute: JournalRoute,
+  JournalRoute: JournalRouteWithChildren,
+  ServicesRoute: ServicesRoute,
   WorkRoute: WorkRouteWithChildren,
 }
 export const routeTree = rootRouteImport
