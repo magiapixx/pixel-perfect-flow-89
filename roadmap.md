@@ -8,3 +8,6 @@
 - [x] Expand the blog with category filters and complete article pages.
 - [x] Check navigation, article reading, and smaller-screen layouts.
 - [x] Apply Plus Jakarta Sans across the website.
+
+# Whitespace
+- [x] Double the vertical space between sections on every page, at desktop, tablet, and phone widths.
