@@ -14,3 +14,4 @@
 - Keep reusable agency UI and browser-safe project data in `src/components/site`; this keeps page layouts consistent.
 - Initialize Lenis through a client-effect dynamic import and honor reduced-motion preferences; SSR must not touch browser APIs.
 - Define all visual tokens and responsive layout styles in the global Tailwind v4 stylesheet; pages consume semantic styles.
+- Keep journal content in a browser-safe typed article collection with an index layout and slug-based detail routes; cards and full stories share one source of truth.

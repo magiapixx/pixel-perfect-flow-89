@@ -3,7 +3,7 @@
 @source "../src";
 @custom-variant dark (&:is(.dark *));
 @theme inline {
- --font-sans: 'Manrope', Arial, sans-serif;
+ --font-sans: 'Plus Jakarta Sans', Arial, sans-serif;
  --color-background: var(--background); --color-foreground: var(--foreground);
  --color-card: var(--card); --color-card-foreground: var(--foreground);
  --color-popover: var(--background); --color-popover-foreground: var(--foreground);
@@ -39,7 +39,7 @@
 .project-tag { background:var(--secondary); color:var(--foreground); border-radius:30px; padding:5px 9px; font-size:8px; }
 .arrow-circle { display:grid; place-items:center; background:var(--primary); color:var(--primary-foreground); border-radius:50%; width:28px; height:28px; }
 .client-strip { max-width:1200px; margin:0 auto; padding:100px 30px 80px; display:flex; align-items:center; justify-content:space-between; gap:30px; color:var(--muted-foreground); font-size:18px; }
-.client-strip span:nth-child(2n) { font-weight:700; } .client-strip span:nth-child(3n) { font-family:Georgia,serif; font-style:italic; }
+.client-strip span:nth-child(2n) { font-weight:700; } .client-strip span:nth-child(3n) { font-style:italic; }
 .section-space { padding-top:130px; padding-bottom:130px; }
 .intro-grid { display:grid; grid-template-columns:1.5fr 1fr; gap:120px; padding-top:105px; padding-bottom:140px; }
 .intro-statement { font-size:29px; line-height:1.25; max-width:380px; }
