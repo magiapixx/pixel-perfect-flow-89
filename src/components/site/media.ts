@@ -3,7 +3,8 @@ import phones from '@/assets/phones.jpg'
 import laptop from '@/assets/laptop.jpg'
 import team from '@/assets/team.jpg'
 export { appStore, phones, laptop, team }
-export const projects = [
+export type Project = { name: string; description: string; image: string; tags: string[]; style: string }
+export const projects: Project[] = [
  { name:'Stark', description:'A bold new perspective on personal finance.', image:phones, tags:['Digital product','Branding'], style:'' },
  { name:'Clio', description:'Making everyday moments extraordinary.', image:laptop, tags:['UI/UX','Website'], style:'sage' },
  { name:'Vantara', description:'A digital world inspired by nature.', image:laptop, tags:['Branding','Web design'], style:'wide sage' },
