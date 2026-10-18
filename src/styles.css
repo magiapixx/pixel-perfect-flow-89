@@ -103,7 +103,9 @@
 /* Scroll-driven expanding home hero: --p goes 0 -> 1. */
 .expand-track { --p:0; --inset-x:max(24px, calc((100vw - 1440px) / 2)); --inset-y:max(24px, calc((100vh - (100vw - 2 * var(--inset-x)) / 1.67) / 2)); height:220vh; position:relative; }
 .expand-sticky { position:sticky; top:0; height:100vh; overflow:hidden; }
-.expand-sticky .hero-project { margin:0; max-width:none; max-height:none; width:100%; height:100%; aspect-ratio:auto; border-radius:0; clip-path:inset(calc(var(--inset-y) * (1 - var(--p))) calc(var(--inset-x) * (1 - var(--p))) round calc(8px * (1 - var(--p)))); will-change:clip-path; }
+.expand-sticky .hero-project { margin:0; max-width:none; max-height:none; width:100%; height:100%; aspect-ratio:auto; border-radius:0; clip-path:inset(calc(var(--inset-top, var(--inset-y)) * (1 - var(--p))) calc(var(--inset-x) * (1 - var(--p))) calc(var(--inset-bottom, var(--inset-y)) * (1 - var(--p))) calc(var(--inset-x) * (1 - var(--p))) round calc(8px * (1 - var(--p)))); will-change:clip-path; }
 .expand-sticky .hero-project img { transform:scale(calc(1.12 - .12 * var(--p))); transition:none; }
-.expand-sticky .project-caption { left:calc(32px + var(--inset-x) * (1 - var(--p))); right:calc(32px + var(--inset-x) * (1 - var(--p))); bottom:calc(30px + var(--inset-y) * (1 - var(--p))); }
-@media(max-width:800px) { .expand-track { --inset-x:12px; height:180vh; } }
+.expand-sticky .project-caption { left:calc(32px + var(--inset-x) * (1 - var(--p))); right:calc(32px + var(--inset-x) * (1 - var(--p))); bottom:calc(30px + var(--inset-bottom, var(--inset-y)) * (1 - var(--p))); }
+@media(max-width:1024px) { .expand-track { --ratio:1.5; --inset-top:0px; --inset-bottom:max(12px, calc(100svh - (100vw - 2 * var(--inset-x)) / var(--ratio))); height:190vh; } .expand-sticky { height:100svh; } .home-heading { padding-bottom:64px!important; } }
+@media(max-width:800px) { .expand-track { --inset-x:12px; height:170vh; } .expand-sticky .project-caption { left:calc(22px + var(--inset-x) * (1 - var(--p))); right:calc(22px + var(--inset-x) * (1 - var(--p))); bottom:calc(22px + var(--inset-bottom) * (1 - var(--p))); } }
+@media(max-width:540px) { .expand-track { --ratio:1.05; height:160vh; } .home-heading { padding-top:72px!important; padding-bottom:40px!important; } }
