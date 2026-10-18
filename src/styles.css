@@ -38,6 +38,9 @@
 .project-tags { display:flex; align-items:center; gap:7px; flex-shrink:0; }
 .project-tag { background:var(--secondary); color:var(--foreground); border-radius:30px; padding:5px 9px; font-size:8px; }
 .arrow-circle { display:grid; place-items:center; background:var(--primary); color:var(--primary-foreground); border-radius:50%; width:28px; height:28px; }
+.back-to-top { position:fixed; left:24px; bottom:24px; z-index:40; display:grid; place-items:center; background:var(--primary); color:var(--primary-foreground); border-radius:50%; width:44px; height:44px; border:0; cursor:pointer; box-shadow:0 8px 24px oklch(.16 .004 260 / .16); transition:transform .25s, box-shadow .25s; }
+.back-to-top:hover { transform:translateY(-3px); box-shadow:0 12px 30px oklch(.16 .004 260 / .22); }
+@media(max-width:540px) { .back-to-top { left:16px; bottom:16px; width:40px; height:40px; } }
 .client-strip { max-width:1200px; margin:0 auto; padding:200px 30px 160px; display:flex; align-items:center; justify-content:space-between; gap:30px; color:var(--muted-foreground); font-size:18px; }
 .client-strip span:nth-child(2n) { font-weight:700; } .client-strip span:nth-child(3n) { font-style:italic; }
 .section-space { padding-top:260px; padding-bottom:260px; }
