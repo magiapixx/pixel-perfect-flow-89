@@ -18,6 +18,10 @@ export function SmoothScroll() {
  }, [])
  return null
 }
+export function BackToTop() {
+ const toTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
+ return <button type="button" className="back-to-top" aria-label="Back to top" onClick={toTop}><ArrowUp size={16}/></button>
+}
 export function Header() {
  const [open,setOpen] = useState(false)
  const {pathname} = useLocation()
