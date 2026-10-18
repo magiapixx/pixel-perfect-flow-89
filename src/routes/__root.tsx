@@ -128,6 +128,7 @@ function RootComponent() {
       <Header />
       <Outlet />
       <Footer />
+      <BackToTop />
     </QueryClientProvider>
   );
 }
