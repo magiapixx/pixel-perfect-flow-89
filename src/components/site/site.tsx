@@ -1,6 +1,6 @@
 import { Link, useLocation } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
-import { ArrowUpRight, ArrowRight, Menu, X, Plus, Minus } from 'lucide-react'
+import { ArrowUpRight, ArrowRight, ArrowUp, Menu, X, Plus, Minus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { appStore, projects } from './media'
 
@@ -9,14 +9,23 @@ export function SmoothScroll() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
   let cleanup: (() => void) | undefined
   let cancelled = false
-  import('lenis').then(({ default: Lenis }) => {
-   if (cancelled) return
-   const lenis = new Lenis({ autoRaf: true, anchors: true, duration: 1.15 })
-   cleanup = () => lenis.destroy()
-  })
+   import('lenis').then(({ default: Lenis }) => {
+    if (cancelled) return
+    const lenis = new Lenis({ autoRaf: true, anchors: true, duration: 1.15 })
+    ;(window as unknown as { __lenis?: unknown }).__lenis = lenis
+    cleanup = () => { delete (window as unknown as { __lenis?: unknown }).__lenis; lenis.destroy() }
+   })
   return () => { cancelled = true; cleanup?.() }
  }, [])
  return null
+}
+export function BackToTop() {
+ const toTop = () => {
+  const lenis = (window as unknown as { __lenis?: { scrollTo: (t: number, o?: object) => void } }).__lenis
+  if (lenis) lenis.scrollTo(0, { duration: 1.2 })
+  else window.scrollTo({ top: 0, behavior: 'smooth' })
+ }
+ return <button type="button" className="back-to-top" aria-label="Back to top" onClick={toTop}><ArrowUp size={16}/></button>
 }
 export function Header() {
  const [open,setOpen] = useState(false)
