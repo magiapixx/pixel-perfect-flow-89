@@ -22,7 +22,7 @@ export function Header() {
  const [open,setOpen] = useState(false)
  const {pathname} = useLocation()
  useEffect(() => setOpen(false),[pathname])
- const nav = <><Link to="/work" className={pathname === '/work' ? 'active' : ''}>Work</Link><Link to="/services" className={pathname === "/services" ? "active" : ""}>Services</Link><Link to="/about" className={pathname === '/about' ? 'active' : ''}>About</Link><Link to="/journal" className={pathname.startsWith('/journal') ? 'active' : ''}>Blog</Link></>
+ const nav = <><Link to="/" className={pathname === '/' ? 'active' : ''}>Home</Link><Link to="/work" className={pathname === '/work' ? 'active' : ''}>Work</Link><Link to="/services" className={pathname === "/services" ? "active" : ""}>Services</Link><Link to="/about" className={pathname === '/about' ? 'active' : ''}>About</Link><Link to="/journal" className={pathname.startsWith('/journal') ? 'active' : ''}>Blog</Link></>
  return <header className="site-header"><Link to="/" className="brand" aria-label="Clay home"><span className="brand-mark">✳</span>clay</Link><nav className="header-nav" aria-label="Main navigation">{nav}</nav><Button asChild className="site-pill desktop-contact"><a href="#contact">LET’S TALK <ArrowUpRight /></a></Button><div className="mobile-nav"><Button variant="ghost" size="icon" aria-label={open?'Close menu':'Open menu'} onClick={()=>setOpen(!open)}>{open?<X/>:<Menu/>}</Button>{open&&<nav className="mobile-menu" aria-label="Mobile navigation">{nav}<a href="#contact" onClick={()=>setOpen(false)}>Let’s talk ↗</a></nav>}</div></header>
 }
 export function Footer() {
