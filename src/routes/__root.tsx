@@ -12,7 +12,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { Header, Footer, SmoothScroll } from "../components/site/site";
+import { Header, Footer, SmoothScroll, BackToTop } from "../components/site/site";
 
 function NotFoundComponent() {
   return (

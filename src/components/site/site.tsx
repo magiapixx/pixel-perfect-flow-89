@@ -1,6 +1,6 @@
 import { Link, useLocation } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
-import { ArrowUpRight, ArrowRight, Menu, X, Plus, Minus } from 'lucide-react'
+import { ArrowUpRight, ArrowRight, ArrowUp, Menu, X, Plus, Minus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { appStore, projects } from './media'
 
