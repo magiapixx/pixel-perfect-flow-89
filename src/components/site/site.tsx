@@ -26,47 +26,6 @@ export function AppearOnScroll() {
   return null
 }
 
-const INVERT_SELECTOR = '.invert-band'
-
-/**
- * Turns whole sections dark while they cross the middle of the viewport and back
- * to light once they leave. Sections sharing a `data-invert-group` flip together,
- * so an adjacent pair (Selected work + Who we are) reads as one continuous band.
- */
-export function InvertOnScroll() {
-  const { pathname } = useLocation()
-  useEffect(() => {
-    if (!('IntersectionObserver' in window)) return
-    const targets = Array.from(document.querySelectorAll<HTMLElement>(INVERT_SELECTOR))
-    if (!targets.length) return
-
-    const groups = new Map<string, HTMLElement[]>()
-    targets.forEach((el, i) => {
-      const key = el.dataset['invertGroup'] ?? `#${i}`
-      groups.set(key, [...(groups.get(key) ?? []), el])
-    })
-
-    // The root is squeezed to a band around the viewport centre (-35% / -35%),
-    // so a section flips as soon as it reaches the middle of the screen.
-    const visible = new Set<HTMLElement>()
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        const el = entry.target as HTMLElement
-        if (entry.isIntersecting) visible.add(el)
-        else visible.delete(el)
-      })
-      groups.forEach((members) => {
-        const dark = members.some(m => visible.has(m))
-        members.forEach(m => m.classList.toggle('is-dark', dark))
-      })
-    }, { rootMargin: '-35% 0px -35% 0px', threshold: 0 })
-
-    targets.forEach(t => io.observe(t))
-    return () => io.disconnect()
-  }, [pathname])
-  return null
-}
-
 export function SmoothScroll() {
  useEffect(() => {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
@@ -111,6 +70,6 @@ const faqs = [
  ['How do we get started on a project together?','Send a note to hey@clay.global with a little about your company and what you have in mind. We’ll start with a conversation.'],
 ]
 export function FAQ() { const [active,setActive]=useState<number|null>(null); return <section className="faq"><p className="eyebrow">A little more clarity</p><h2>Frequently Asked Questions</h2>{faqs.map(([q,a],i)=><div key={q} className="faq-row"><Button variant="ghost" className="faq-trigger" aria-expanded={active===i} aria-controls={`faq-${i}`} onClick={()=>setActive(active===i?null:i)}>{q}{active===i?<Minus size={14}/>:<Plus size={14}/>}</Button>{active===i&&<p id={`faq-${i}`} className="faq-answer">{a}</p>}</div>)}</section> }
-export function ContactBand() { return <section className="contact-band"><p className="eyebrow">Make your next move</p><h2>A Platform that Inspires</h2><p>We turn ambitious ideas into meaningful digital experiences. Let’s create something that moves your brand — and the world — forward.</p><div className="contact-actions"><Button asChild className="site-pill"><a href="mailto:hey@clay.global">START A PROJECT <ArrowUpRight/></a></Button></div></section> }
+export function ContactBand() { return <section className="contact-band"><h3>A Platform that Inspires</h3><p>We turn ambitious ideas into meaningful digital experiences that move your brand — and the world — forward.</p><div className="contact-actions"><Button asChild className="site-pill"><a href="mailto:hey@clay.global">START A PROJECT <ArrowUpRight/></a></Button></div></section> }
 export function Breadcrumb({current}:{current:string}) { return <p className="breadcrumb"><span>CLAY GLOBAL</span> / &nbsp; {current.toUpperCase()}</p> }
 export function pageHead(title:string,description:string) { return {meta:[{title:`${title} — Clay`},{name:'description',content:description},{property:'og:title',content:`${title} — Clay`},{property:'og:description',content:description},{property:'og:type',content:'website'},{name:'twitter:card',content:'summary_large_image'}]} }

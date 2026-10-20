@@ -13,17 +13,15 @@ type GsapModule = typeof import('gsap')['gsap']
 /**
  * WordScrollReveal — words of `selector` light up progressively while the
  * block scrolls through the center of the viewport (scrubbed by scroll).
+ * Animates opacity only, so it reads correctly on light and dark sections.
  */
 export function WordScrollReveal({
   selector,
-  start = 'rgba(34,34,34,0.01)',
-  end = '#222222',
+  start = 0.02,
 }: {
   selector: string
-  /** Faded starting color (light theme: dark text at low opacity). */
-  start?: string
-  /** Fully-lit color matching the site foreground. */
-  end?: string
+  /** Starting opacity of each word (fully lit = 1). */
+  start?: number
 }) {
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
@@ -48,9 +46,9 @@ export function WordScrollReveal({
       const split = SplitText.create(target, { type: 'words' })
       const tween = gsap.fromTo(
         split.words,
-        { color: start },
+        { opacity: start },
         {
-          color: end,
+          opacity: 1,
           ease: 'none',
           stagger: 0.1,
           scrollTrigger: {
@@ -75,7 +73,7 @@ export function WordScrollReveal({
       cancelled = true
       cleanup?.()
     }
-  }, [selector, start, end])
+  }, [selector, start])
 
   return null
 }

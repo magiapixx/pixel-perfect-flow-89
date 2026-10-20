@@ -12,7 +12,8 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { Header, Footer, SmoothScroll, BackToTop, AppearOnScroll, InvertOnScroll } from "../components/site/site";
+import { Header, Footer, SmoothScroll, BackToTop, AppearOnScroll } from "../components/site/site";
+import { InvertOnScroll } from "../components/site/invert-on-scroll";
 
 function NotFoundComponent() {
   return (
