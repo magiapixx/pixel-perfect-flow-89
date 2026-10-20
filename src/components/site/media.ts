@@ -3,13 +3,14 @@ import phones from '@/assets/phones.jpg'
 import laptop from '@/assets/laptop.jpg'
 import team from '@/assets/team.jpg'
 export { appStore, phones, laptop, team }
-export type Project = { name: string; description: string; image: string; tags: string[]; style: string }
+export type Project = { name: string; description: string; image: string; tags: string[]; style: string; kind?: 'web' | 'app'; focus?: string }
 export const projects: Project[] = [
- { name:'Stark', description:'A bold new perspective on personal finance.', image:phones, tags:['Digital product','Branding'], style:'' },
- { name:'Clio', description:'Making everyday moments extraordinary.', image:laptop, tags:['UI/UX','Website'], style:'sage' },
- { name:'Vantara', description:'A digital world inspired by nature.', image:laptop, tags:['Branding','Web design'], style:'wide sage' },
- { name:'Clio', description:'A considered experience, from the first touch.', image:appStore, tags:['Digital product'], style:'' },
- { name:'Stark', description:'Clarity in a world of complexity.', image:phones, tags:['Strategy','UI/UX'], style:'' },
+ { name:'Stark', description:'A bold new perspective on personal finance.', image:phones, tags:['Digital product','Branding'], style:'', kind:'app' },
+ { name:'Clio', description:'Making everyday moments extraordinary.', image:laptop, tags:['UI/UX','Website'], style:'sage', kind:'web' },
+ { name:'Vantara', description:'A digital world inspired by nature.', image:laptop, tags:['Branding','Web design'], style:'wide sage', kind:'web', focus:'25% center' },
+ { name:'Clio', description:'A considered experience, from the first touch.', image:appStore, tags:['Digital product'], style:'', kind:'app' },
+ { name:'Meridian', description:'A clearer way to plan the work that matters.', image:laptop, tags:['Website','Development'], style:'', kind:'web', focus:'68% center' },
+ { name:'Harbor', description:'A calm home for ambitious ideas.', image:laptop, tags:['Branding','Website'], style:'', kind:'web', focus:'right center' },
 ]
 export const capabilities = [
  {name:'Branding', copy:'Distinct identities that connect with people and move brands forward.', tags:['Brand Strategy','Brand Architecture','Visual Identity','Art Direction','Brand Guidelines']},

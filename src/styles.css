@@ -70,22 +70,8 @@
 .project-tile .project-caption { bottom:22px; left:24px; right:24px; }
 .project-tile .project-caption h3 { font-size:var(--fs-h5); }
 .project-tile.sage .project-caption { color:var(--foreground); }
-/* Home "Selected work" mosaic: left col wider — short top-left, tall right, tall wide bottom-left, short bottom-right (desktop only) */
-@media(min-width:1025px) {
-  .bento-grid { grid-template-columns:1fr 1.7fr; grid-auto-rows:clamp(200px,16vw,290px); }
-  .bento-grid .project-tile { aspect-ratio:auto; }
-  .bento-grid .b1 { grid-area:1 / 1 / 2 / 2; }
-  .bento-grid .b2 { grid-area:2 / 1 / 4 / 2; }
-  .bento-grid .b3 { grid-area:1 / 2 / 3 / 3; }
-  .bento-grid .b4 { grid-area:3 / 2 / 4 / 3; }
-}
-/* Tablet & mobile (≤1024px): "Selected work" follows the mobile layout — one full-width card per row */
+/* Tablet & mobile (≤1024px): "Selected work" heading scales down */
 @media(max-width:1024px) {
-  .doubled .project-grid { grid-template-columns:1fr; grid-auto-rows:auto; gap:14px; }
-  .doubled .project-grid .project-tile { grid-area:auto; grid-column:1/-1; aspect-ratio:1.25; }
-  .doubled .project-tags .project-tag { display:none; }
-  .doubled .project-tile .project-caption h3 { font-size:18px; }
-  .doubled .project-tile .project-caption p { font-size:10px; }
   .doubled .section-heading h2 { font-size:40px; }
 }
 @media(max-width:540px) { .doubled .section-heading h2 { font-size:21px; } }
@@ -225,3 +211,24 @@
 /* ---- No borders anywhere (the logo ring is the only one kept) ---- */
 *:not(.brand-mark) { border:0 !important; }
 *::before, *::after { border:0 !important; }
+/* ---- Selected work: asymmetric zigzag mosaic -------------------------------
+   Cards are portrait (3:4), alternate right → left → right … (top-right,
+   bottom-left, bottom-right …), the mobile-app projects are 25% smaller than
+   the websites, and every card grows 10% while it scrolls into view
+   (GSAP ScrollTrigger). */
+.work-mosaic { --work-w:min(100%, clamp(300px, 42vw, 560px)); display:flex; flex-direction:column; gap:var(--space-band); }
+.work-card { position:relative; display:block; overflow:hidden; border-radius:8px; background:var(--secondary); width:var(--work-w); aspect-ratio:3 / 4; }
+.work-card.is-left { margin-right:auto; }
+.work-card.is-right { margin-left:auto; }
+.work-card.is-app { width:calc(var(--work-w) * .75); }
+.work-card img { display:block; width:100%; height:100%; object-fit:cover; }
+.work-card .project-caption { bottom:26px; left:22px; right:22px; }
+.work-card.is-light .project-caption { color: var(--foreground); }
+.work-card .project-caption p { max-width:320px; }
+@media(max-width:800px) {
+  .work-card { aspect-ratio:4 / 5; }
+  .work-card .project-caption { bottom:18px; left:18px; right:18px; }
+  .work-card .project-caption h3 { font-size:20px; }
+  .work-card .project-caption p { font-size:11px; }
+  .work-card .project-tag { display:none; }
+}
