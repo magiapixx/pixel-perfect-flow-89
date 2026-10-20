@@ -163,3 +163,19 @@
 .ts-xs { font-size:var(--fs-xs); }
 @media(max-width:800px) { .section-heading h2 { font-size:40px; }.faq h2 { font-size:44px; }.contact-band h2 { font-size:44px; }.why-grid h2 { font-size:44px; }.journal-toolbar h2 { font-size:36px; }.case-facts h2 { font-size:32px; } }
 @media(max-width:540px) { .section-heading h2 { font-size:21px; }.faq h2 { font-size:23px; }.contact-band h2 { font-size:29px; }.why-grid h2 { font-size:34px; }.journal-toolbar h2 { font-size:30px; }.case-facts h2 { font-size:28px; }.resource-panel h3 { font-size:19px; }.resource-columns h4 { font-size:18px; } }
+
+/* ---- Sections that turn dark while they cross the middle of the viewport ---- */
+.invert-band { background-color:var(--background); color:var(--foreground); transition:background-color .65s ease, color .65s ease; }
+.invert-band h2, .invert-band h3, .invert-band .eyebrow, .invert-band .text-link,
+.invert-band .body-copy, .invert-band .approach-item, .invert-band .approach-item p { transition:color .65s ease, border-color .65s ease; }
+.invert-band.is-dark { background-color:var(--foreground); color:var(--background); }
+.invert-band.is-dark .eyebrow { color:oklch(.74 .13 245); }
+.invert-band.is-dark .text-link:hover { color:oklch(.74 .13 245); }
+.invert-band.is-dark .body-copy, .invert-band.is-dark .approach-item p { color:oklch(.978 .012 250 / .62); }
+.invert-band.is-dark .approach-item { border-bottom-color:oklch(1 0 0 / .16); }
+/* Selected work band: breathing room above the eyebrow (bottom padding lives on .pb-64) */
+.invert-band .doubled { padding-top:120px; }
+@media(max-width:800px) { .invert-band .doubled { padding-top:90px; } }
+/* Selected work cards stay muted and still — no hover colour reveal, no zoom */
+.doubled .project-tile img { filter:grayscale(1) opacity(.55); transition:none; }
+.doubled .project-tile:hover img { filter:grayscale(1) opacity(.55); transform:none; }

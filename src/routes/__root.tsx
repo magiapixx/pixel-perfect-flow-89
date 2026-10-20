@@ -12,7 +12,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { Header, Footer, SmoothScroll, BackToTop, AppearOnScroll } from "../components/site/site";
+import { Header, Footer, SmoothScroll, BackToTop, AppearOnScroll, InvertOnScroll } from "../components/site/site";
 
 function NotFoundComponent() {
   return (
@@ -126,6 +126,7 @@ function RootComponent() {
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <SmoothScroll />
       <AppearOnScroll />
+      <InvertOnScroll />
       <Header />
       <Outlet />
       <Footer />

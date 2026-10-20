@@ -26,6 +26,47 @@ export function AppearOnScroll() {
   return null
 }
 
+const INVERT_SELECTOR = '.invert-band'
+
+/**
+ * Turns whole sections dark while they cross the middle of the viewport and back
+ * to light once they leave. Sections sharing a `data-invert-group` flip together,
+ * so an adjacent pair (Selected work + Who we are) reads as one continuous band.
+ */
+export function InvertOnScroll() {
+  const { pathname } = useLocation()
+  useEffect(() => {
+    if (!('IntersectionObserver' in window)) return
+    const targets = Array.from(document.querySelectorAll<HTMLElement>(INVERT_SELECTOR))
+    if (!targets.length) return
+
+    const groups = new Map<string, HTMLElement[]>()
+    targets.forEach((el, i) => {
+      const key = el.dataset['invertGroup'] ?? `#${i}`
+      groups.set(key, [...(groups.get(key) ?? []), el])
+    })
+
+    // The root is squeezed to a band around the viewport centre (-35% / -35%),
+    // so a section flips as soon as it reaches the middle of the screen.
+    const visible = new Set<HTMLElement>()
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const el = entry.target as HTMLElement
+        if (entry.isIntersecting) visible.add(el)
+        else visible.delete(el)
+      })
+      groups.forEach((members) => {
+        const dark = members.some(m => visible.has(m))
+        members.forEach(m => m.classList.toggle('is-dark', dark))
+      })
+    }, { rootMargin: '-35% 0px -35% 0px', threshold: 0 })
+
+    targets.forEach(t => io.observe(t))
+    return () => io.disconnect()
+  }, [pathname])
+  return null
+}
+
 export function SmoothScroll() {
  useEffect(() => {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
