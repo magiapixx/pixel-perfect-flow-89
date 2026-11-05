@@ -1,5 +1,9 @@
 # Pixel Perfect Flow
 
+## Homepage
+
+![Clay homepage](./public/homepage.png)
+
 as a creative web developer, can you create a website based on this design pixel perfectly? use lennis for smooth scrolling and astrojs and tailwindcss for the tech stacks?
 
 This project was built with [Lovable](https://lovable.dev).
